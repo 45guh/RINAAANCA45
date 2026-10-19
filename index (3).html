@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Surat Cinta untuk Rina — dari Anca</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+:root {
+  --ink-dark: #3a1a24; --ink-red: #a01a3a; --ink-red-soft: rgba(160,26,58,0.3);
+  --ink-blue: #2a4a7a; --paper-warm: #e8d5c0; --wax: #c42040; --wax-dark: #6b0f22;
+  --bg-deep: #0d0609; --gold: #c9a888;
+  --ease-out-expo: cubic-bezier(0.16,1,0.3,1); --ease-spring: cubic-bezier(0.34,1.56,0.64,1);
+}
+html, body { width: 100%; height: 100%; overflow: hidden; font-family: 'Playfair Display', Georgia, serif; background: var(--bg-deep); color: var(--ink-dark); }
+.stage { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center;
+  background: radial-gradient(ellipse at 30% 20%, #3a1520 0%, transparent 50%), radial-gradient(ellipse at 70% 80%, #1f0a12 0%, transparent 50%), var(--bg-deep); overflow: hidden; }
+.stage::before { content: ''; position: absolute; inset: -50px;
+  background-image: radial-gradient(1.5px 1.5px at 20% 30%, rgba(255,200,180,0.45), transparent), radial-gradient(1px 1px at 80% 20%, rgba(255,200,180,0.3), transparent), radial-gradient(1.5px 1.5px at 40% 70%, rgba(255,200,180,0.35), transparent), radial-gradient(1px 1px at 90% 60%, rgba(255,200,180,0.25), transparent), radial-gradient(1.5px 1.5px at 10% 80%, rgba(255,200,180,0.3), transparent);
+  animation: dust 25s linear infinite; pointer-events: none; }
+@keyframes dust { from { transform: translate(0,0); } to { transform: translate(-40px,-70px); } }
+.candle-glow { position: fixed; width: 420px; height: 420px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,180,100,0.16) 0%, transparent 70%); pointer-events: none; z-index: 1;
+  animation: candleFlicker 4s ease-in-out infinite; bottom: -140px; left: 50%; transform: translateX(-50%); mix-blend-mode: screen; }
+@keyframes candleFlicker { 0%,100% { opacity: .6; transform: translateX(-50%) scale(1); } 33% { opacity: .85; transform: translateX(-48%) scale(1.08); } 66% { opacity: .7; transform: translateX(-52%) scale(.96); } }
+
+/* AMPLOP */
+.envelope-scene { position: relative; z-index: 10; display: flex; flex-direction: column; align-items: center; gap: 32px; padding: 24px; perspective: 1200px; transition: opacity .8s var(--ease-out-expo), transform .8s var(--ease-out-expo); }
+.envelope-scene.hide { opacity: 0; transform: scale(1.6) rotateX(25deg); pointer-events: none; }
+.envelope { position: relative; width: min(80vw, 340px); aspect-ratio: 1.5/1; cursor: pointer; transform-style: preserve-3d;
+  animation: envelopeBreathe 4s ease-in-out infinite; filter: drop-shadow(0 24px 60px rgba(0,0,0,.75)); transition: transform .4s var(--ease-spring); outline: none; border: none; background: none; padding: 0; }
+@keyframes envelopeBreathe { 0%,100% { transform: translateY(0) rotate(-1deg); } 50% { transform: translateY(-10px) rotate(1deg); } }
+.envelope:hover, .envelope:focus-visible { animation-play-state: paused; transform: translateY(-12px) scale(1.03); }
+.envelope:focus-visible .envelope-body { box-shadow: inset 0 0 60px rgba(120,80,60,.2), 0 0 0 3px var(--gold), 0 10px 30px rgba(0,0,0,.5); }
+.envelope-body { position: absolute; inset: 0; background: linear-gradient(145deg, #ece0cc 0%, #d4bfa8 100%); border-radius: 6px; box-shadow: inset 0 0 60px rgba(120,80,60,.2), 0 10px 30px rgba(0,0,0,.5); }
+.envelope-body::before { content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, transparent 49.5%, rgba(160,120,90,.15) 50%, transparent 50.5%), linear-gradient(-135deg, transparent 49.5%, rgba(160,120,90,.15) 50%, transparent 50.5%); border-radius: 6px; }
+.envelope-flap { position: absolute; top: 0; left: 0; right: 0; height: 55%; background: linear-gradient(180deg, #dcc8b0 0%, #c8b298 100%);
+  clip-path: polygon(0 0,100% 0,50% 100%); border-radius: 6px 6px 0 0; transform-origin: top center; transition: transform .9s var(--ease-out-expo); box-shadow: 0 4px 10px rgba(0,0,0,.2); z-index: 3; }
+.envelope.opened .envelope-flap { transform: rotateX(-180deg); }
+.wax-seal { position: absolute; top: 42%; left: 50%; transform: translate(-50%,-50%); width: 72px; height: 72px;
+  background: radial-gradient(circle at 35% 35%, #e03050, var(--wax-dark) 75%); border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  font-family: 'Caveat', cursive; font-size: 34px; color: #f5c8d0; font-weight: 700;
+  box-shadow: inset -3px -3px 8px rgba(0,0,0,.4), inset 3px 3px 8px rgba(255,120,140,.35), 0 4px 15px rgba(107,15,34,.6);
+  z-index: 4; transition: all .4s var(--ease-spring); text-shadow: 0 1px 2px rgba(0,0,0,.3); }
+.envelope:hover .wax-seal, .envelope:focus-visible .wax-seal { transform: translate(-50%,-50%) scale(1.12) rotate(-5deg); box-shadow: inset -3px -3px 8px rgba(0,0,0,.4), inset 3px 3px 8px rgba(255,120,140,.35), 0 4px 28px rgba(196,32,64,.95); }
+.envelope.opened .wax-seal { transform: translate(-50%,-50%) scale(0) rotate(180deg); opacity: 0; }
+.envelope-label { position: absolute; bottom: 18px; left: 0; right: 0; text-align: center; font-family: 'Caveat', cursive; color: #5a3a2a; z-index: 2; pointer-events: none; }
+.envelope-label .to { font-size: 10px; letter-spacing: 3px; font-family: 'Playfair Display', serif; color: #8a6a5a; text-transform: uppercase; margin-bottom: 4px; }
+.envelope-label .name { font-size: 24px; font-weight: 700; color: #4a2a1a; }
+.envelope-label .from { font-size: 13px; margin-top: 6px; color: #8a6a5a; font-style: italic; }
+.invitation { text-align: center; color: var(--paper-warm); max-width: 400px; }
+.invitation .line1 { font-family: 'Caveat', cursive; font-size: 22px; color: var(--gold); margin-bottom: 6px; opacity: 0; animation: fadeIn 1.2s ease .3s forwards; }
+.invitation .line2 { font-family: 'Playfair Display', serif; font-size: clamp(18px,4.5vw,24px); font-style: italic; color: var(--paper-warm); margin-bottom: 20px; opacity: 0; animation: fadeIn 1.2s ease 1s forwards; }
+.invitation .line2 span { color: #ff8899; font-weight: 700; font-style: normal; }
+.invitation .hint { font-family: 'Caveat', cursive; font-size: 16px; color: #8a6a7a; opacity: 0; animation: fadeIn 1.2s ease 2s forwards, pulse 2.5s ease-in-out 3s infinite; }
+@keyframes fadeIn { to { opacity: 1; } }
+@keyframes pulse { 0%,100% { opacity: .45; } 50% { opacity: 1; } }
+
+/* SURAT */
+.letter-scene { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; padding: 16px; z-index: 20; opacity: 0; pointer-events: none; transition: opacity .8s ease; perspective: 1500px; }
+.letter-scene.show { opacity: 1; pointer-events: auto; }
+.letter { position: relative; width: min(94vw, 480px); max-height: 90vh; max-height: 90dvh;
+  background: linear-gradient(180deg, rgba(245,235,220,.98) 0%, rgba(238,225,205,.98) 100%); border-radius: 4px; padding: 32px 26px 28px; overflow-y: auto; overscroll-behavior: contain;
+  box-shadow: 0 30px 80px rgba(0,0,0,.8), 0 0 0 1px rgba(180,150,120,.3), inset 0 0 80px rgba(180,140,100,.15);
+  transform: rotateX(-90deg) translateY(100px) scale(.8); transform-origin: bottom center; transition: transform 1.2s var(--ease-spring), background .8s ease, box-shadow .8s ease; }
+.letter-scene.show .letter { transform: rotateX(0) translateY(0) scale(1); }
+.letter::before { content: ''; position: absolute; inset: 0; background-image: repeating-linear-gradient(180deg, transparent 0, transparent 27px, rgba(120,90,70,.08) 27px, rgba(120,90,70,.08) 28px); pointer-events: none; border-radius: 4px; }
+.letter::after { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 0% 0%, rgba(160,120,80,.25), transparent 20%), radial-gradient(ellipse at 100% 100%, rgba(160,120,80,.25), transparent 20%); pointer-events: none; border-radius: 4px; }
+.letter::-webkit-scrollbar { width: 4px; } .letter::-webkit-scrollbar-thumb { background: rgba(120,90,70,.4); border-radius: 2px; }
+.letter-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 18px; padding-bottom: 12px; border-bottom: 1px solid rgba(120,90,70,.25); position: relative; z-index: 2; }
+.letter-photo { width: 60px; height: 60px; border-radius: 50%; object-fit: cover; border: 2px solid #8a4a5a; box-shadow: 0 2px 8px rgba(0,0,0,.3); filter: sepia(15%) contrast(1.05); background: linear-gradient(135deg,#d4bfa8,#b8a08a); }
+.letter-date { text-align: right; font-family: 'Caveat', cursive; color: #7a4a5a; }
+.letter-date .d1 { font-size: 12px; letter-spacing: 1px; color: #9a6a7a; font-family: 'Playfair Display', serif; text-transform: uppercase; margin-bottom: 2px; }
+.letter-date .d2 { font-size: 18px; font-weight: 700; color: #6a2a3a; }
+.letter-body { position: relative; z-index: 2; font-family: 'Caveat', cursive; font-size: clamp(17px,4.2vw,20px); line-height: 1.55; color: var(--ink-dark); }
+.letter-body .salutation { font-size: 1.25em; font-weight: 700; color: #6a2a3a; margin-bottom: 14px; display: block; }
+.letter-body .line { display: block; margin-bottom: 12px; opacity: 0; transform: translateY(8px); transition: opacity .6s ease, transform .6s ease; }
+.letter-body .line.visible { opacity: 1; transform: translateY(0); }
+.letter-body .highlight { color: var(--ink-red); font-weight: 700; text-decoration: underline; text-decoration-color: var(--ink-red-soft); text-underline-offset: 3px; }
+.letter-body .anca-name { color: #8a1a3a; font-weight: 700; background: linear-gradient(transparent 60%, rgba(255,180,200,.4) 60%); padding: 0 2px; }
+.letter-body .rina-name { color: var(--ink-blue); font-weight: 700; background: linear-gradient(transparent 60%, rgba(180,200,255,.4) 60%); padding: 0 2px; }
+.letter-body .tear-word { color: #4a6a8a; font-style: italic; position: relative; }
+.letter-body .tear-word::after { content: '💧'; font-size: .7em; position: absolute; top: -2px; right: -14px; opacity: .6; }
+.letter-body .sorry { display: block; text-align: center; font-size: 1.4em; font-weight: 700; color: var(--ink-red); margin: 20px 0; font-family: 'Playfair Display', serif; font-style: italic; }
+.letter-signature { position: relative; z-index: 2; margin-top: 24px; padding-top: 16px; border-top: 1px dashed rgba(120,90,70,.35); text-align: right; font-family: 'Caveat', cursive; }
+.letter-signature .from { font-size: 14px; color: #7a4a5a; font-family: 'Playfair Display', serif; font-style: italic; margin-bottom: 4px; }
+.letter-signature .anca-sign { font-size: 32px; color: #6a2a3a; font-weight: 700; transform: rotate(-3deg); display: inline-block; }
+.letter-signature .heart-doodle { font-size: 20px; color: var(--ink-red); margin-left: 6px; display: inline-block; transform: rotate(10deg); animation: heartPulse 2s ease-in-out infinite; }
+@keyframes heartPulse { 0%,100% { transform: rotate(10deg) scale(1); } 50% { transform: rotate(10deg) scale(1.15); } }
+.reply-area { position: relative; z-index: 2; margin-top: 26px; padding-top: 20px; border-top: 1px solid rgba(120,90,70,.2); }
+.reply-prompt { font-family: 'Caveat', cursive; font-size: 17px; color: #7a4a5a; text-align: center; margin-bottom: 14px; }
+.reply-buttons { display: flex; flex-direction: column; gap: 10px; }
+.reply-btn { padding: 14px 20px; font-family: 'Caveat', cursive; font-size: 19px; font-weight: 700; border: none; border-radius: 4px; cursor: pointer; transition: all .25s var(--ease-out-expo); letter-spacing: .5px; outline: none; }
+.reply-btn:focus-visible { box-shadow: 0 0 0 3px var(--gold); }
+.reply-btn.yes { background: linear-gradient(135deg,#a01a3a,#c4304a); color: #f5e8dc; box-shadow: 0 4px 15px rgba(160,26,58,.4); }
+.reply-btn.yes:hover, .reply-btn.yes:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(160,26,58,.6); }
+.reply-btn.yes:active { transform: translateY(0) scale(.98); }
+.reply-btn.no { background: transparent; color: #6a3a4a; border: 1.5px solid rgba(120,60,80,.4); font-size: 17px; }
+.reply-btn.no:hover, .reply-btn.no:focus-visible { background: rgba(120,60,80,.08); border-color: rgba(120,60,80,.6); }
+.reply-btn:disabled { opacity: .5; cursor: not-allowed; transform: none !important; }
+.stamp { position: absolute; top: 30%; right: 20px; width: 130px; height: 130px; border: 4px solid var(--ink-red); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center; font-family: 'Playfair Display', serif; font-weight: 700; color: var(--ink-red); font-size: 18px; text-align: center; line-height: 1.1;
+  transform: rotate(-15deg) scale(0); opacity: 0; transition: all .5s var(--ease-spring); background: rgba(255,235,235,.5); box-shadow: 0 0 0 3px rgba(160,26,58,.2) inset; z-index: 5; pointer-events: none; }
+.stamp.show { transform: rotate(-15deg) scale(1); opacity: 1; }
+.stamp::before { content: ''; position: absolute; inset: 8px; border: 1.5px dashed var(--ink-red); border-radius: 50%; opacity: .6; }
+.letter.forgiven { background: linear-gradient(180deg, rgba(255,248,240,.99), rgba(255,240,235,.99)); box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(200,160,140,.4), inset 0 0 100px rgba(255,200,180,.2), 0 0 60px rgba(255,180,160,.3); }
+.final-message { margin-top: 20px; padding: 20px; background: linear-gradient(135deg, rgba(255,200,210,.4), rgba(255,220,200,.4)); border-radius: 8px; text-align: center; border: 1px solid rgba(200,120,140,.3); animation: finalFadeIn 1s var(--ease-out-expo) forwards; }
+@keyframes finalFadeIn { from { opacity: 0; transform: scale(.9); } to { opacity: 1; transform: scale(1); } }
+.final-heart { font-size: 50px; display: inline-block; animation: heartBeat 1.4s ease-in-out infinite; filter: drop-shadow(0 0 15px rgba(200,40,80,.6)); }
+@keyframes heartBeat { 0%,100% { transform: scale(1); } 14% { transform: scale(1.25); } 28% { transform: scale(1); } 42% { transform: scale(1.18); } 70% { transform: scale(1); } }
+.final-message .title { font-family: 'Caveat', cursive; font-size: 26px; font-weight: 700; color: #8a1a3a; margin: 10px 0 6px; }
+.final-message .text { font-family: 'Playfair Display', serif; font-style: italic; font-size: 14px; color: #6a3a4a; line-height: 1.6; }
+.tear-popup { position: fixed; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 500; pointer-events: none; background: rgba(10,5,8,.7); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); opacity: 0; animation: popupFade .3s ease forwards; }
+@keyframes popupFade { to { opacity: 1; } }
+.tear-photo { width: clamp(160px,42vw,220px); height: clamp(160px,42vw,220px); border-radius: 50%; object-fit: cover; border: 3px solid var(--wax); box-shadow: 0 0 60px rgba(196,32,64,.9), 0 0 120px rgba(196,32,64,.4); filter: sepia(20%) contrast(1.05); animation: popIn .6s var(--ease-spring) forwards; background: linear-gradient(135deg,#d4bfa8,#b8a08a); }
+@keyframes popIn { 0% { transform: scale(0) rotate(-180deg); opacity: 0; } 70% { transform: scale(1.1) rotate(8deg); opacity: 1; } 100% { transform: scale(1) rotate(0); opacity: 1; } }
+.tear-text { font-family: 'Caveat', cursive; font-size: clamp(22px,5.5vw,28px); font-weight: 700; color: #ffb0c0; margin-top: 20px; text-align: center; text-shadow: 0 0 20px rgba(196,32,64,.8); opacity: 0; animation: fadeInUp .6s ease .2s forwards; max-width: 80vw; padding: 0 20px; }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.tear-drop { position: fixed; font-size: 20px; color: #7ab8ff; pointer-events: none; z-index: 400; animation: tearFall linear forwards; text-shadow: 0 0 8px rgba(122,184,255,.8); will-change: transform, opacity; }
+@keyframes tearFall { 0% { transform: translateY(0) scale(.5); opacity: 0; } 20% { opacity: 1; } 100% { transform: translateY(60vh) scale(1.2); opacity: 0; } }
+@keyframes letterShake { 0%,100% { transform: translateX(0) rotate(0); } 10%,30%,50%,70%,90% { transform: translateX(-5px) rotate(-.5deg); } 20%,40%,60%,80% { transform: translateX(5px) rotate(.5deg); } }
+.letter.shake { animation: letterShake .5s ease; }
+.mini-toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: rgba(20,10,15,.95); color: #f0d8de; padding: 10px 20px; border-radius: 50px; font-family: 'Caveat', cursive; font-size: 17px; z-index: 600; transition: transform .35s var(--ease-spring); border: 1px solid rgba(196,32,64,.4); box-shadow: 0 8px 25px rgba(0,0,0,.5); max-width: 85vw; text-align: center; pointer-events: none; }
+.mini-toast.show { transform: translateX(-50%) translateY(0); }
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } .envelope { animation: none; } }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="candle-glow" aria-hidden="true"></div>
+
+  <!-- LAYAR 1: AMPLOP -->
+  <div class="envelope-scene" id="envelopeScene">
+    <div class="invitation">
+      <div class="line1">Untuk Rina Nurfitriani, cintanya Anca</div>
+      <div class="line2">Ada surat cinta dari <span>Anca</span> 💌</div>
+    </div>
+
+    <button class="envelope" id="envelope" onclick="openEnvelope()" aria-label="Buka surat cinta dari Anca untuk Rina">
+      <div class="envelope-body"></div>
+      <div class="envelope-flap"></div>
+      <div class="wax-seal" aria-hidden="true">A</div>
+      <div class="envelope-label">
+        <div class="to">Kepada cintaku</div>
+        <div class="name">Rina Nurfitriani</div>
+        <div class="from">dari Anca yang sayang banget 💕</div>
+      </div>
+    </button>
+
+    <div class="invitation">
+      <div class="hint" id="hint">✧ ketuk amplopnya ya sayang ✧</div>
+    </div>
+  </div>
+
+  <!-- LAYAR 2: SURAT -->
+  <div class="letter-scene" id="letterScene" aria-hidden="true">
+    <div class="letter" id="letter" role="article" aria-label="Surat cinta dari Anca untuk Rina">
+      <div class="letter-header">
+        <img class="letter-photo" id="letterPhoto" src="rina.jpg" alt="Foto Rina">
+        <div class="letter-date">
+          <div class="d1">Ditulis dengan cinta</div>
+          <div class="d2">20 Oktober 2026</div>
+        </div>
+      </div>
+
+      <div class="letter-body" id="letterBody">
+        <span class="salutation">Rina cintaku, sayangnya Anca,</span>
+        <span class="line" data-delay="0">Anca nulis surat ini sambil nahan nangis, sambil kangen banget sama Rina.</span>
+        <span class="line" data-delay="500">Karena Anca tau — <span class="highlight">hari ini, 20 Oktober 2026, Anca bikin Rina kecewa</span>.</span>
+        <span class="line" data-delay="1100">Anca <span class="anca-name">Anca</span> yang egois hari ini, sayang.</span>
+        <span class="line" data-delay="1600">Anca cuma mikirin diri sendiri, nggak mikirin perasaan <span class="rina-name">Rina</span> yang Anca sayang banget.</span>
+        <span class="line" data-delay="2100">Anca salah. Anca beneran salah, cayang.</span>
+        <span class="line" data-delay="2600"><span class="tear-word">Air mata Rina hari ini</span>...</span>
+        <span class="line" data-delay="3100">Itu semua karena Anca. Dan Anca nggak bisa hapus itu. Anca nggak bisa balikin waktu.</span>
+        <span class="line" data-delay="3600">Tapi Anca <span class="highlight">beneran nyesel banget</span>, Rina.</span>
+        <span class="line" data-delay="4100">Anca nggak bisa tidur, mikirin Rina nangis gara-gara Anca.</span>
+        <span class="line" data-delay="4600">Anca minta maaf ya cayang... <span class="highlight">maafin Anca ya, sayang</span>.</span>
+        <span class="line" data-delay="5100">Anca janji nggak akan ngulangin lagi. Anca janji jadi Anca yang lebih baik buat Rina.</span>
+        <span class="line" data-delay="5600">Anca mau belajar jadi Anca yang bikin Rina <span class="rina-name">senyum terus</span>,</span>
+        <span class="line" data-delay="6100">bukan yang bikin Rina nangis.</span>
+        <span class="line" data-delay="6600">Kalau Rina masih sakit hati, Anca ngerti, sayang. Anca nggak akan maksa.</span>
+        <span class="line" data-delay="7100">Anca akan <span class="tear-word">sabar nungguin Rina</span> balik ke pelukan Anca.</span>
+        <span class="line" data-delay="7600">Karena Anca <span class="highlight">sayang banget sama Rina</span>, hari ini, besok, dan selamanya.</span>
+        <span class="sorry">— maafin Anca ya, cayang —</span>
+      </div>
+
+      <div class="letter-signature">
+        <div class="from">Yang selalu nyesel dan sayang banget sama Rina,</div>
+        <div class="anca-sign">Anca <span class="heart-doodle">❤</span></div>
+      </div>
+
+      <div class="reply-area" id="replyArea">
+        <div class="reply-prompt">Rina, balas surat Anca ya sayang?</div>
+        <div class="reply-buttons" id="replyButtons">
+          <button class="reply-btn yes" onclick="forgive()">✉ Iya cayang, aku maafin Anca</button>
+          <button class="reply-btn no" id="btnNo" onclick="notYet()">😢 Masih sedih, Anca...</button>
+        </div>
+      </div>
+
+      <div class="stamp" id="stamp" aria-hidden="true">SUDAH<br>DIMAAFKAN</div>
+    </div>
+  </div>
+</div>
+
+<div class="mini-toast" id="miniToast" role="status" aria-live="polite"></div>
+
+<script>
+const FOTO_SRC = "rina.jpg";
+const MAX_NO_CLICKS = 4;
+const NO_MESSAGES = [
+  "Anca ngerti, sayang... Anca tungguin ya 🙏",
+  "Anca nggak akan maksa Rina kok, cayang...",
+  "Anca masih di sini, nungguin Rina...",
+  "Anca sayang Rina, selalu dan selamanya ❤"
+];
+let envelopeOpened = false, letterAnimated = false, noClickCount = 0, isForgiven = false;
+
+function openEnvelope() {
+  if (envelopeOpened) return;
+  envelopeOpened = true;
+  const env = document.getElementById('envelope');
+  const hint = document.getElementById('hint');
+  if (hint) hint.style.display = 'none';
+  env.classList.add('opened');
+  env.disabled = true;
+  setTimeout(() => {
+    document.getElementById('envelopeScene').classList.add('hide');
+    const letterScene = document.getElementById('letterScene');
+    letterScene.classList.add('show');
+    letterScene.setAttribute('aria-hidden', 'false');
+    const photo = document.getElementById('letterPhoto');
+    photo.src = FOTO_SRC;
+    photo.onerror = () => { photo.style.display = 'none'; };
+    if (!letterAnimated) { letterAnimated = true; setTimeout(animateLetter, 900); }
+  }, 900);
+}
+
+function animateLetter() {
+  document.querySelectorAll('#letterBody .line').forEach(line => {
+    const delay = parseInt(line.dataset.delay) || 0;
+    setTimeout(() => line.classList.add('visible'), delay);
+  });
+}
+
+function showToast(msg) {
+  const t = document.getElementById('miniToast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+function spawnTears(count) {
+  const emojis = ['💧','💦'];
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const drop = document.createElement('div');
+      drop.className = 'tear-drop';
+      drop.textContent = emojis[Math.floor(Math.random()*emojis.length)];
+      drop.setAttribute('aria-hidden','true');
+      drop.style.left = (20 + Math.random()*60) + 'vw';
+      drop.style.top = (10 + Math.random()*20) + 'vh';
+      drop.style.fontSize = (14 + Math.random()*18) + 'px';
+      drop.style.animationDuration = (1.5 + Math.random()*1.5) + 's';
+      document.body.appendChild(drop);
+      setTimeout(() => drop.remove(), 3200);
+    }, i * 120);
+  }
+}
+
+function showTearPopup() {
+  const popup = document.createElement('div');
+  popup.className = 'tear-popup';
+  popup.innerHTML = `<img class="tear-photo" src="${FOTO_SRC}" alt="Foto Rina" onerror="this.style.display='none'"><div class="tear-text">Anca nggak tega liat Rina sedih, cayang...</div>`;
+  document.body.appendChild(popup);
+  spawnTears(6);
+  setTimeout(() => popup.remove(), 2200);
+}
+
+function notYet() {
+  if (isForgiven) return;
+  const letter = document.getElementById('letter');
+  letter.classList.add('shake');
+  setTimeout(() => letter.classList.remove('shake'), 600);
+  showTearPopup();
+  noClickCount++;
+  const msg = NO_MESSAGES[Math.min(noClickCount - 1, NO_MESSAGES.length - 1)];
+  showToast(msg);
+  const btnNo = document.getElementById('btnNo');
+  if (noClickCount >= MAX_NO_CLICKS) {
+    btnNo.textContent = '😢 Anca... aku butuh waktu ya';
+    btnNo.disabled = true;
+  } else {
+    const texts = ['😢 Masih sedih, Anca...','😔 Masih kecewa sama Anca...','🥺 Belum bisa maafin Anca','💔 Hati Rina masih perih'];
+    btnNo.textContent = texts[Math.min(noClickCount, texts.length - 1)];
+  }
+}
+
+function forgive() {
+  if (isForgiven) return;
+  isForgiven = true;
+  const letter = document.getElementById('letter');
+  const stamp = document.getElementById('stamp');
+  const replyButtons = document.getElementById('replyButtons');
+  const replyArea = document.getElementById('replyArea');
+  letter.classList.add('forgiven');
+  stamp.classList.add('show');
+  replyButtons.style.display = 'none';
+  const finalMsg = document.createElement('div');
+  finalMsg.className = 'final-message';
+  finalMsg.innerHTML = `<div class="final-heart">❤️</div><div class="title">Makasih ya, cayang...</div><div class="text">Anca nggak akan sia-siain kepercayaan Rina.<br>Anca janji jadi Anca yang lebih baik. Untuk Rina. Untuk kita.<br>Anca sayang banget sama Rina. Selamanya. 💕</div>`;
+  replyArea.appendChild(finalMsg);
+  spawnHearts(14);
+  showToast('💌 Rina udah maafin Anca! Anca sayang Rina! 💕');
+  setTimeout(() => { letter.scrollTo({ top: letter.scrollHeight, behavior: 'smooth' }); }, 300);
+}
+
+function spawnHearts(count) {
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => {
+      const heart = document.createElement('div');
+      heart.textContent = ['❤️','💖','💕','💗'][Math.floor(Math.random()*4)];
+      heart.setAttribute('aria-hidden','true');
+      heart.style.cssText = `position:fixed;left:${15+Math.random()*70}vw;bottom:-30px;font-size:${16+Math.random()*20}px;pointer-events:none;z-index:450;animation:heartFloat ${2+Math.random()*2}s ease-out forwards;`;
+      document.body.appendChild(heart);
+      setTimeout(() => heart.remove(), 4500);
+    }, i * 100);
+  }
+}
+
+const heartStyle = document.createElement('style');
+heartStyle.textContent = `@keyframes heartFloat { 0% { transform: translateY(0) rotate(0) scale(.6); opacity: 0; } 15% { opacity: 1; } 100% { transform: translateY(-80vh) rotate(25deg) scale(1.1); opacity: 0; } }`;
+document.head.appendChild(heartStyle);
+
+document.addEventListener('keydown', (e) => {
+  if ((e.key === 'Enter' || e.key === ' ') && document.activeElement === document.getElementById('envelope')) {
+    e.preventDefault(); openEnvelope();
+  }
+});
+</script>
+</body>
+</html>
